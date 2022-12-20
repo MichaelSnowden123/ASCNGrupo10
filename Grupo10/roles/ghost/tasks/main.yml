@@ -1,0 +1,26 @@
+---
+- name: Create ghost user
+
+- name: Update packages
+  become: yes
+  apt:
+    update_cache: yes
+    upgrade: yes
+
+- name: Install nginx
+  apt:
+    name: ['nginx']
+    state: latest
+
+- name: Install mysql
+  apt:
+    name: ['mysql-server']
+    state: latest
+
+- name: Install node.js
+
+
+- name: Install ghost-cli
+
+- name: Install ghost
+

@@ -1,0 +1,6 @@
+---
+- name: Undeploy ghost 
+  apt:
+    pkg: ghost
+    state: absent
+  become: true
