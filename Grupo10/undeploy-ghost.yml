@@ -5,4 +5,4 @@
   hosts: ghost_undeploy
   gather_facts: false
   roles:
-  - ghost_undeploy
+    - ghost_undeploy

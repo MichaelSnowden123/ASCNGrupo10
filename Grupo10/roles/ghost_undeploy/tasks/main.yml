@@ -1,6 +1,12 @@
 ---
-- name: Undeploy ghost 
+- name: Stop ghost 
   apt:
     pkg: ghost
-    state: absent
+    state: stopped
   become: true
+
+- name: Undeploy ghost
+  shell: "ghost uninstall -e delete_data=true"
+  args:
+    chdir: "{{ dir }}"
+  #when: "-e delete_data=true"

@@ -1,6 +1,4 @@
 ---
-- name: Create ghost user
-
 - name: Update packages
   become: yes
   apt:
@@ -9,18 +7,66 @@
 
 - name: Install nginx
   apt:
-    name: ['nginx']
+    name: nginx
     state: latest
+    update_cache: yes
 
-- name: Install mysql
+- name: Install mysql-server
   apt:
-    name: ['mysql-server']
-    state: latest
+    name: mysql-server
+    state: present
 
 - name: Install node.js
-
+  shell: curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -; sudo apt-get install -y nodejs
 
 - name: Install ghost-cli
+  shell: npm i -g ghost-cli
+
+#- name: Add Ghost group
+#  group:
+#    name: "{{ ghost_user_group }}"
+#    system: yes
+#    state: present
+#  sudo: yes
+
+- name: Add Ghost user
+  user:
+    name: "{{ ghost_user_name }}"
+    password: "{{ ghost_user_password }}"
+    email: "{{ ghost_user_email }}"
+#    group: "{{ ghost_user_group }}"
+    createhome: yes
+    shell: /bin/false
+    system: yes
+    state: present
+  sudo: yes
+
+- name: Create ghost directory
+  shell: mkdir -p '{{ dir }}'
+
+- name: Changes permissions
+  file:
+    path: '{{ dir }}'
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: '755'
+    recurse: yes
 
 - name: Install ghost
+  shell: ghost install
+  args:
+    chdir: '{{ dir }}'
 
+- name: Setup systemd
+  become: false
+  shell: ghost setup systemd
+  args:
+    chdir: '{{ dir }}'
+  tags:
+    - system
+
+- name: Ghost start
+  shell: ghost start
+  args:
+    chdir: '{{ dir }}'

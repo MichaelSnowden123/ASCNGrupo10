@@ -1,0 +1,7 @@
+---
+- name: restart ghost
+  shell: ghost restart
+  args:
+      chdir: "{{ dir }}"
+  sudo: yes
+
