@@ -39,7 +39,7 @@
     shell: /bin/false
     system: yes
     state: present
-  sudo: yes
+  #sudo: yes
 
 - name: Create ghost directory
   shell: mkdir -p '{{ dir }}'

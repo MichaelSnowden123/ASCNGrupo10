@@ -3,5 +3,5 @@
   shell: ghost restart
   args:
       chdir: "{{ dir }}"
-  sudo: yes
+# sudo: yes
 

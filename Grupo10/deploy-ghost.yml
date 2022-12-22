@@ -2,7 +2,7 @@
 
 ---
 - name: Ghost install
-  hosts: ghost
+  hosts: localhost
   become: yes
   roles:
     - ghost

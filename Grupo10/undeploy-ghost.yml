@@ -2,7 +2,7 @@
 # Playbook to undeploy Ghost and its component
 
 - name: Undeploy Ghost
-  hosts: ghost_undeploy
+  hosts: localhost
   gather_facts: false
   roles:
     - ghost_undeploy
