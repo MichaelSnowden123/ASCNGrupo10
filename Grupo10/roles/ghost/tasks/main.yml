@@ -31,9 +31,9 @@
 
 - name: Add Ghost user
   user:
-    name: "{{ ghost_user_name }}"
-    password: "{{ ghost_user_password }}"
-    email: "{{ ghost_user_email }}"
+    name: "ascn"
+    password: "ascn123"
+    email: "ascn@example.com"
 #    group: "{{ ghost_user_group }}"
     createhome: yes
     shell: /bin/false
