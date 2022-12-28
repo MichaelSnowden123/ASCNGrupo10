@@ -1,12 +1,24 @@
 ---
-- name: Stop ghost 
-  apt:
-    pkg: ghost
-    state: stopped
-  become: true
+- name: Search for mysql
+  kubernetes.core.k8s_info:
+    namespace: default
+    kind: Pod
+    label_selectors:
+      - app = mysql
+  register: pod_list
 
-- name: Undeploy ghost
-  shell: "ghost uninstall -e delete_data=true"
-  args:
-    chdir: "{{ dir }}"
-  #when: "-e delete_data=true"
+- name: Search for nodes
+  kubernetes.core.k8s_info:
+    namespace: default
+    kind: Node
+  register: node_list
+
+- name: Deploy ghost
+  kubernetes.core.k8s:
+    state: absent
+    template: "{{ ghost_deploy_file }}"
+
+- name: Deploy ghost service
+  kubernetes.core.k8s:
+    state: absent
+    template: "{{ ghost_service_file }}"
