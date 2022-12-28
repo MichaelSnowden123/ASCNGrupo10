@@ -4,5 +4,8 @@
 - name: Undeploy Ghost
   hosts: localhost
   gather_facts: false
+  vars:
+    delete_data: "false"
   roles:
     - ghost_undeploy
+    - { role: mysql_undeploy, when: delete_data == "true"}

@@ -3,8 +3,7 @@
 ---
 - name: Ghost install
   hosts: localhost
-  become: yes
+  gather_facts: false
   roles:
     - ghost
-  tags: 
-    - ghostinstall
+    - mysql
