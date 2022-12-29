@@ -1,0 +1,13 @@
+---
+- name: Deploy mysql pvc
+  kubernetes.core.k8s:
+    state: present
+    src: "{{ mysql_pvc_file }}"
+- name: Deploy Mysql
+  kubernetes.core.k8s:
+    state: present
+    src: "{{ mysql_deploy_file }}"
+- name: Deploy mysql service
+  kubernetes.core.k8s:
+    state: present
+    src: "{{ mysql_service_file }}"
