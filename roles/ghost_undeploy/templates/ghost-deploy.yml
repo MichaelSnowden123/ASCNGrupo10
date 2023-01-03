@@ -18,19 +18,19 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: ghost
+        image: ghost:5.14.1
         env:
         - name: url
-          value: http://{{ node_list.resources.0.status.addresses.1.address }}:30007/
-        - name: db_client
+          value: http://{{ ghost_ip }}:{{ ghost_port }}/ 
+        - name: database__client
           value: mysql
-        - name: db_host
+        - name: database__connection__host
           value: mysql-service
-        - name: db_user
+        - name: database__connection__user
           value: ghost
-        - name: db_password
-          value: password
-        - name: db_database
+        - name: database__connection__password
+          value: pass
+        - name: database__connection__database
           value: ghost-db
         ports:
         - containerPort: 2368

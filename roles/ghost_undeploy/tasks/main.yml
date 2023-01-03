@@ -13,12 +13,17 @@
     kind: Node
   register: node_list
 
-- name: Deploy ghost
+- name: Destroy IP
+  shell: gcloud compute addresses delete helloweb-ip --region {{ gcp_region }}
+
+- name: Destroy ghost
   kubernetes.core.k8s:
     state: absent
     template: "{{ ghost_deploy_file }}"
+    wait: true
 
-- name: Deploy ghost service
+- name: Destroy ghost service
   kubernetes.core.k8s:
     state: absent
     template: "{{ ghost_service_file }}"
+    wait: true
