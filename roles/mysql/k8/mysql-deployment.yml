@@ -24,15 +24,19 @@ spec:
         image: mysql:latest
         env: 
         - name: MYSQL_DATABASE
-          value: ghost_db
+          value: "{{ mysql_database }}"
+          #value: ghost-db
         - name: MYSQL_USER
-          value: "ghost"
+          value: "{{ mysql_user }}"
+          #value: ghost
         - name: MYSQL_PASSWORD
-          value: "password"
+          value: "{{ mysql_password }}"
+          #value: 123456
         - name: MYSQL_ALLOW_EMPTY_PASSWORD
           value: "true" 
         ports:
-        - containerPort: 3306
+        - containerPort: "{{ mysql_ctn_port }}"
+        #- containerPort: 3306
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql

@@ -16,7 +16,10 @@ all:
 
   # APP variables
   ghost_ip: <GHOST_SERVICE_IP>     # Needs to be updated
-  ghost_port: <GHOST_PORT>         # Needs to be updated
+  ghost_port: 80         # Needs to be updated
+  ghost: ghost
+  ghost_version: 5.14.1
+  ghost_image: "{{ ghost }}":"{{ ghost_version }}"
 
 
   # Additional variables
@@ -27,11 +30,27 @@ all:
   admin_email: ascn@example.com
   admin_user_name: ascn
   admin_password: ascn123
+  'admin_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          34383562633463396530383836613866313733663833363661373632383062616339376530613534
+          3536363432356633646636323665636231313839376630360a636638343463333062306262313230
+          65376535323739376465653630353230626537613135616634656331613262366662656439663435
+          3965663636393765340a343765666662346131643165393162633661626431626432313062613630
+          3436'
 
   # MYSQL variables
+  mysql_client: mysql
   mysql_host: mysql-service
   mysql_user: ghost
   mysql_password: 123456
+  "mysql_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          35393531623763383736653966626632623838373837326139336136393264306237313438653435
+          3366316536326337373561303332326165323737666165350a303961653964376666383335313665
+          66346164633465306432646537373438643966333463366132643464306438333537356264633639
+          6331313339623138310a656565613966643066653764353931353563633461616135323631626132
+          3630
+  "
   mysql_database: ghost-db
   mysql_ctn_port: 3306
   mysql_deploy_file: mysql-deployment.yml
