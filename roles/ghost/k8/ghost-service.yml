@@ -2,10 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ghost-service
+  namespace: default
+  labels:
+    app: ghost
 spec:
+  type: LoadBalancer
   selector:
     app: ghost
   ports:
     - port: "{{ ghost_port }}"
       targetPort: 2368 #supostamente o servico ghost ouve sempre nesta porta
-  type: LoadBalancer
+  loadBalancerIP: {{ ghost_ip }}
