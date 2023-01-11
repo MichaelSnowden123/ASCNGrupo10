@@ -7,3 +7,5 @@
     - mysql
     - ghost
     - test_ghost
+    - monitoring
+#    - benchmark
