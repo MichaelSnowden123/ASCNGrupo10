@@ -10,6 +10,10 @@ spec:
   selector:
     app: ghost
   ports:
-    - port: "{{ ghost_port }}"
+    - protocol: TCP  
+      port: {{ ghost_port }} #80
       targetPort: 2368 #supostamente o servico ghost ouve sempre nesta porta
+    #- protocol: TCP
+    #  port: 80
+    #  target: 2368
   loadBalancerIP: {{ ghost_ip }}

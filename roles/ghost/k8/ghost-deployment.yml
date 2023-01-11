@@ -4,6 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ghost
+  namespace: default
   labels:
     app: ghost
 spec:
@@ -23,15 +24,15 @@ spec:
         - name: url
           value: http://{{ ghost_ip }}:{{ ghost_port }}/
         - name: database__client
-          value: "{{ mysql_client }}"
+          value: "mysql" #mysql    {{ mysql_client }}
         - name: database__connection__host
-          value: "{{ mysql_service }}"
+          value: "mysql-service" #    {{ mysql_host }}
         - name: database__connection__user
-          value: "{{ mysql_user }}"
+          value: "ghost" #ghost     {{ mysql_user }}
         - name: database__connection__password
-          value: "{{ mysql_password }}"
+          value: "1234" #"{{ mysql_password }}"
         - name: database__connection__database
-          value: "{{ mysql_database }}"
+          value: "ghost-db" #     {{ mysql_database }}
         - name: mail__transport
           value: "SMTP"
         - name: mail__options__service

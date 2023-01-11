@@ -1,5 +1,4 @@
 ---
-# Deployment for MySQL
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,14 +23,14 @@ spec:
       - name: mysql
         image: mysql:latest
         env: 
-        - name: MYSQL_ALLOW_EMPTY_PASSWORD
-          value: "true" 
+        - name: MYSQL_HOST
+          value: "{{ mysql_host }}"
         - name: MYSQL_DATABASE
-          value: "ghost-db"
+          value: "{{ mysql_database }}"
         - name: MYSQL_USER
-          value: "ghost"
+          value: "{{ mysql_user }}"
         - name: MYSQL_PASSWORD
-          value: "1234" # Use Secret object in real usage
+          value: "{{ mysql_password }}" 
         ports:
         - containerPort: 3306
         volumeMounts:
@@ -41,8 +40,3 @@ spec:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-pv-claim
-      readinessProbe:
-      exec:
-        command:
-        - mysqladmin ping --silent
-      initialDelaySeconds: 5

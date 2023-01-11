@@ -7,11 +7,7 @@
   shell: gcloud compute addresses describe helloweb-ip --region {{ gcp_region }} | grep -P -o --regexp="([0-9]{1,3}\.){3}[0-9]{1,3}"
   register: result
 
-- name: Replace hostname 
-  ansible.builtin.replace:
-    path: inventory/gcp.yml
-    regexp: 'ghost_ip: "(?:[0-9]{1,3}\.){3}[0-9]{1,3}"'
-    replace: 'ghost_ip: "{{ result.stdout }}"'
+
 
 - name: Refresh inventory
   meta: refresh_inventory
@@ -41,7 +37,7 @@
 
 - name: Check that you can connect to Ghost
   ansible.builtin.uri:
-    url: "http://{{ ghost_ip }}:{{ghost_port}}/"
+    url: "http://{{ ghost_ip }}:{{ ghost_port }}/"
     method: GET
     status_code: 200
   register: result
