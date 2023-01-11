@@ -13,8 +13,8 @@
 #    kind: Node
 #  register: node_list
 
-- name: Destroy IP
-  shell: gcloud compute addresses delete helloweb-ip --region {{ gcp_region }}
+#- name: Destroy IP
+#  shell: gcloud compute addresses delete helloweb-ip --region {{ gcp_region }}
 
 - name: Destroy ghost
   kubernetes.core.k8s:

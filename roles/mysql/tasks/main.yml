@@ -1,9 +1,15 @@
 ---
+- name : create secret from local file
+  shell: kubectl apply -f mysql-secret.yaml
+- name: Deploy mysql PV
+  kubernetes.core.k8s: 
+    state: present
+    src: "{{ mysql_pv_file }}"
 - name: Deploy mysql pvc
   kubernetes.core.k8s:
     state: present
     src: "{{ mysql_pvc_file }}"
-- name: Deploy Mysql
+- name: Deploy mysql
   kubernetes.core.k8s:
     state: present
     src: "{{ mysql_deploy_file }}"

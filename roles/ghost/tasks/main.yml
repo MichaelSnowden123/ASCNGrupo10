@@ -7,7 +7,11 @@
   shell: gcloud compute addresses describe helloweb-ip --region {{ gcp_region }} | grep -P -o --regexp="([0-9]{1,3}\.){3}[0-9]{1,3}"
   register: result
 
-
+- name: Replace hostname 
+  ansible.builtin.replace:
+    path: inventory/gcp.yml
+    regexp: 'ghost_ip: "(?:[0-9]{1,3}\.){3}[0-9]{1,3}"'
+    replace: 'ghost_ip: "{{ result.stdout }}"'
 
 - name: Refresh inventory
   meta: refresh_inventory
@@ -31,9 +35,9 @@
 - name: Deploy ghost
   kubernetes.core.k8s:
     state: present
-    template: "{{ghost_deploy_file}}"
+    template: "{{ ghost_deploy_file }}"
     wait: true
-    wait_timeout: 6000
+    wait_timeout: 1000
 
 - name: Check that you can connect to Ghost
   ansible.builtin.uri:
@@ -42,11 +46,24 @@
     status_code: 200
   register: result
   until: result.status == 200
-  retries: 5
-  delay: 20
+  retries: 3
+  delay: 30
+
+- name: Encrypt admin ghost password
+  ansible.builtin.command: python3 -c 'import bcrypt; print(bcrypt.hashpw(b"{{ admin_password }}", bcrypt.gensalt(rounds=10)).decode("ascii"))'
+  register: adpass
+
+- name: Format password
+  ansible.builtin.command: python3 -c 'x="{{ adpass.stdout }}".replace("$","\$");'
+  register: adpass
   
-- name: Create Ghost admin
+- name: Create admin in Ghost DB
   kubernetes.core.k8s_exec:
     namespace: default
     pod: "{{ pod_list.resources.0.metadata.name }}"
-    command: mysql "{{ mysql_database }}" -e "update users set name='"{{ admin_user_name }}"', password='"{{ admin_password }}"', email='"{{ admin_email }}"', status='active' where id=1"
+    command: mysql ghost-db -e "UPDATE users SET name='{{ admin_user_name }}', password='{{ adpass.stdout }}', email='{{ admin_email }}', status='active' WHERE id=1;SELECT IF(EXISTS (SELECT * FROM users WHERE name='{{ admin_user_name }}'), 1, 0) AS user_exists;"
+  register: regAdmin
+  ignore_errors: true
+  until: regAdmin.stdout_lines[1] is defined and regAdmin.stdout_lines[1] == "1" 
+  retries: 3
+  delay: 30

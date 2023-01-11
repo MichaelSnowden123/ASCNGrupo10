@@ -16,11 +16,10 @@ all:
 
 
   # APP variables
-  ghost_ip: "34.171.58.161" #34.171.58.161    # Needs to be updated
-  ghost_port: 30007         # Needs to be updated
+  ghost_ip: "34.132.194.230"  # Needs to be updated
+  ghost_port: 80        # Needs to be updated
   ghost: ghost
   ghost_version: 5.14.1
-  #ghost_image: "{{ ghost }}":"{{ ghost_version }}"
   ghost_image: ghost:5.14.1
 
 
@@ -33,15 +32,14 @@ all:
   admin_user_name: ascn
   admin_password: ascn123
   
-
   # MYSQL variables
   mysql_client: mysql
   mysql_host: mysql-service
   mysql_user: ghost
-  mysql_password: "1234"
   
   mysql_database: ghost-db
   mysql_ctn_port: 3306
   mysql_deploy_file: ./roles/mysql/k8/mysql-deployment.yml
   mysql_pvc_file: ./roles/mysql/k8/mysql-pvc.yml
   mysql_service_file: ./roles/mysql/k8/mysql-service.yml
+  mysql_pv_file: ./roles/mysql/k8/persistent-volume.yml

@@ -1,5 +1,5 @@
 ---
-# Deployment for deploying Swap
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -8,7 +8,7 @@ metadata:
   labels:
     app: ghost
 spec:
-  replicas: 1 #4
+  replicas: 1
   selector:
     matchLabels:
       app: ghost
@@ -24,15 +24,20 @@ spec:
         - name: url
           value: http://{{ ghost_ip }}:{{ ghost_port }}/
         - name: database__client
-          value: "mysql" #mysql    {{ mysql_client }}
+          value: "{{ mysql_client }}" 
         - name: database__connection__host
-          value: "mysql-service" #    {{ mysql_host }}
+          value: "{{ mysql_host }}" 
         - name: database__connection__user
-          value: "ghost" #ghost     {{ mysql_user }}
+          value: "{{ mysql_user }}"
         - name: database__connection__password
-          value: "1234" #"{{ mysql_password }}"
+          valueFrom:
+                secretKeyRef:
+                    name: mysql-secrets
+                    key: password
         - name: database__connection__database
-          value: "ghost-db" #     {{ mysql_database }}
+          value: "{{ mysql_database }}"
+        - name: database__connection__port
+          value: "{{ mysql_ctn_port }}"
         - name: mail__transport
           value: "SMTP"
         - name: mail__options__service
@@ -41,6 +46,5 @@ spec:
           value: "{{ admin_user_name }}"
         - name: mail__options__auth__pass
           value: "{{ admin_password }}"
-        
         ports:
         - containerPort: 2368

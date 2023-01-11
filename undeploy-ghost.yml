@@ -1,6 +1,5 @@
 ---
 # Playbook to undeploy Ghost and its component
-
 - name: Undeploy Ghost
   hosts: localhost
   gather_facts: false
@@ -9,4 +8,3 @@
   roles:
     - mysql_undeploy
     - ghost_undeploy
-    #- { role: mysql_undeploy, when: delete_data == "true"}

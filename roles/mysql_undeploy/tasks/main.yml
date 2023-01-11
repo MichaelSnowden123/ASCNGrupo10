@@ -1,24 +1,18 @@
 ---
-#- name: Make dir
-#  file:
-#    path: data
-#    state: directory
-#    recurse: yes
-#    force: true
-#- name: Persistent volume
-#  kubernetes.core.k8s:
-#    state: present
-#    src: persistent-volumes.yml
+- name: Deploy mysql PV
+  kubernetes.core.k8s: 
+    state: absent
+    src: "{{ mysql_pv_file }}"
 - name: Destroy mysql PVC
   kubernetes.core.k8s:
     state: absent
     src: "{{ mysql_pvc_file }}"
-- name: Destroy Mysql
+- name: Destroy mysql
   kubernetes.core.k8s:
     state: absent
     src: "{{ mysql_deploy_file }}"
     wait: true
-- name: Destroy mysql Service
+- name: Destroy mysql service
   kubernetes.core.k8s:
     state: absent
     src: "{{ mysql_service_file }}"
