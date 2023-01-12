@@ -1,4 +1,4 @@
-#---
+---
 
-#- name: Benchmark
-#  shell: 
+- name: Benchmark
+  shell: jmeter -n -t 

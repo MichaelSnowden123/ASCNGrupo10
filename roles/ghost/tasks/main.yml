@@ -54,7 +54,7 @@
   register: adpass
 
 - name: Format password
-  ansible.builtin.command: python3 -c 'x="{{ adpass.stdout }}".replace("$","\$");'
+  ansible.builtin.command: python3 -c 'x="{{ adpass.stdout }}".replace("$","\$");print(x)'
   register: adpass
   
 - name: Create admin in Ghost DB

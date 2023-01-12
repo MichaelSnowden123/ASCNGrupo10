@@ -1,5 +1,10 @@
 ---
 
-- name: Monitorizção
-  shell: gcloud monitoring dashboards create --config-from-file=monitor.json
-  #shell: gcloud monitoring dashboards export "Grid Layout Example" --destination=
+- name: Dashboard CPU Utilization
+  shell: gcloud monitoring dashboards create --config-from-file=monitoring/cpu.json
+
+- name: Dashboard RAM
+  shell: gcloud monitoring dashboards create --config-from-file=monitoring/ram.json
+
+- name: Dashboard IO
+  shell: gcloud monitoring dashboards create --config-from-file=monitoring/io.json
