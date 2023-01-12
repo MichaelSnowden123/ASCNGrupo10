@@ -1,4 +1,5 @@
 ---
 
 - name: Monitorizção
-  shell: gcloud monitoring dashboards create --config-from-file=monitor.yml
+  shell: gcloud monitoring dashboards create --config-from-file=monitor.json
+  #shell: gcloud monitoring dashboards export "Grid Layout Example" --destination=
