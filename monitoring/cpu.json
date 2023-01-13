@@ -1,7 +1,7 @@
 {
   "category": "CUSTOM",
   "dashboardFilters": [],
-  "displayName": "CPU - Custom",
+  "displayName": "CPU",
   "labels": {},
   "mosaicLayout": {
     "columns": 12,
@@ -17,7 +17,7 @@
             "dataSets": [
               {
                 "minAlignmentPeriod": "60s",
-                "plotType": "STACKED_AREA",
+                "plotType": "LINE",
                 "targetAxis": "Y1",
                 "timeSeriesQuery": {
                   "apiSource": "DEFAULT_CLOUD",
@@ -60,7 +60,7 @@
             "dataSets": [
               {
                 "minAlignmentPeriod": "60s",
-                "plotType": "STACKED_AREA",
+                "plotType": "LINE",
                 "targetAxis": "Y1",
                 "timeSeriesQuery": {
                   "apiSource": "DEFAULT_CLOUD",
@@ -103,7 +103,7 @@
             "dataSets": [
               {
                 "minAlignmentPeriod": "60s",
-                "plotType": "STACKED_AREA",
+                "plotType": "LINE",
                 "targetAxis": "Y1",
                 "timeSeriesQuery": {
                   "apiSource": "DEFAULT_CLOUD",
