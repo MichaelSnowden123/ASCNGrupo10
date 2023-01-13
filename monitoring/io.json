@@ -9,7 +9,7 @@
       {
         "height": 4,
         "widget": {
-          "title": "IO Time",
+          "title": "Kubernetes Container - Memory usage [MEAN]",
           "xyChart": {
             "chartOptions": {
               "mode": "COLOR"
@@ -17,7 +17,7 @@
             "dataSets": [
               {
                 "minAlignmentPeriod": "60s",
-                "plotType": "LINE",
+                "plotType": "STACKED_AREA",
                 "targetAxis": "Y1",
                 "timeSeriesQuery": {
                   "apiSource": "DEFAULT_CLOUD",
@@ -25,13 +25,13 @@
                     "aggregation": {
                       "alignmentPeriod": "60s",
                       "crossSeriesReducer": "REDUCE_NONE",
-                      "perSeriesAligner": "ALIGN_RATE"
+                      "perSeriesAligner": "ALIGN_MEAN"
                     },
-                    "filter": "metric.type=\"compute.googleapis.com/guest/disk/io_time\" resource.type=\"gce_instance\"",
+                    "filter": "metric.type=\"kubernetes.io/container/memory/used_bytes\" resource.type=\"k8s_container\"",
                     "secondaryAggregation": {
                       "alignmentPeriod": "60s",
                       "crossSeriesReducer": "REDUCE_NONE",
-                      "perSeriesAligner": "ALIGN_MEAN"
+                      "perSeriesAligner": "ALIGN_NONE"
                     }
                   }
                 }
@@ -52,7 +52,7 @@
       {
         "height": 4,
         "widget": {
-          "title": "Disk usage",
+          "title": "Kubernetes Container - Memory limit utilization [MEAN]",
           "xyChart": {
             "chartOptions": {
               "mode": "COLOR"
@@ -60,7 +60,7 @@
             "dataSets": [
               {
                 "minAlignmentPeriod": "60s",
-                "plotType": "LINE",
+                "plotType": "STACKED_AREA",
                 "targetAxis": "Y1",
                 "timeSeriesQuery": {
                   "apiSource": "DEFAULT_CLOUD",
@@ -70,7 +70,7 @@
                       "crossSeriesReducer": "REDUCE_NONE",
                       "perSeriesAligner": "ALIGN_MEAN"
                     },
-                    "filter": "metric.type=\"compute.googleapis.com/guest/disk/bytes_used\" resource.type=\"gce_instance\"",
+                    "filter": "metric.type=\"kubernetes.io/container/memory/limit_utilization\" resource.type=\"k8s_container\"",
                     "secondaryAggregation": {
                       "alignmentPeriod": "60s",
                       "crossSeriesReducer": "REDUCE_NONE",
@@ -95,7 +95,7 @@
       {
         "height": 4,
         "widget": {
-          "title": "Queue Length",
+          "title": "VM Instance - Received bytes [MEAN]",
           "xyChart": {
             "chartOptions": {
               "mode": "COLOR"
@@ -103,7 +103,7 @@
             "dataSets": [
               {
                 "minAlignmentPeriod": "60s",
-                "plotType": "LINE",
+                "plotType": "STACKED_AREA",
                 "targetAxis": "Y1",
                 "timeSeriesQuery": {
                   "apiSource": "DEFAULT_CLOUD",
@@ -111,13 +111,13 @@
                     "aggregation": {
                       "alignmentPeriod": "60s",
                       "crossSeriesReducer": "REDUCE_NONE",
-                      "perSeriesAligner": "ALIGN_MEAN"
+                      "perSeriesAligner": "ALIGN_RATE"
                     },
-                    "filter": "metric.type=\"compute.googleapis.com/guest/disk/queue_length\" resource.type=\"gce_instance\"",
+                    "filter": "metric.type=\"compute.googleapis.com/instance/network/received_bytes_count\" resource.type=\"gce_instance\"",
                     "secondaryAggregation": {
                       "alignmentPeriod": "60s",
                       "crossSeriesReducer": "REDUCE_NONE",
-                      "perSeriesAligner": "ALIGN_NONE"
+                      "perSeriesAligner": "ALIGN_MEAN"
                     }
                   }
                 }
@@ -138,7 +138,7 @@
       {
         "height": 4,
         "widget": {
-          "title": "Runnable task count [MAX]",
+          "title": "VM Instance - Sent bytes [MEAN]",
           "xyChart": {
             "chartOptions": {
               "mode": "COLOR"
@@ -146,7 +146,7 @@
             "dataSets": [
               {
                 "minAlignmentPeriod": "60s",
-                "plotType": "LINE",
+                "plotType": "STACKED_AREA",
                 "targetAxis": "Y1",
                 "timeSeriesQuery": {
                   "apiSource": "DEFAULT_CLOUD",
@@ -154,13 +154,13 @@
                     "aggregation": {
                       "alignmentPeriod": "60s",
                       "crossSeriesReducer": "REDUCE_NONE",
-                      "perSeriesAligner": "ALIGN_MAX"
+                      "perSeriesAligner": "ALIGN_RATE"
                     },
-                    "filter": "metric.type=\"compute.googleapis.com/guest/cpu/runnable_task_count\" resource.type=\"gce_instance\"",
+                    "filter": "metric.type=\"compute.googleapis.com/instance/network/sent_bytes_count\" resource.type=\"gce_instance\"",
                     "secondaryAggregation": {
                       "alignmentPeriod": "60s",
                       "crossSeriesReducer": "REDUCE_NONE",
-                      "perSeriesAligner": "ALIGN_NONE"
+                      "perSeriesAligner": "ALIGN_MEAN"
                     }
                   }
                 }

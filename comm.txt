@@ -1,0 +1,9 @@
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+source ~/.bashrc
+gcloud components update
+gcloud container clusters get-credentials ascn-cluster
+
+
+export GOOGLE_APPLICATION_CREDENTIALS=json/servicekey.json
+
+https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
