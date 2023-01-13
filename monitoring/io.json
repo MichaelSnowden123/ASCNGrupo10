@@ -1,7 +1,7 @@
 {
   "category": "CUSTOM",
   "dashboardFilters": [],
-  "displayName": "IO - Disk",
+  "displayName": "IO/Disk - Custom",
   "labels": {},
   "mosaicLayout": {
     "columns": 12,
