@@ -1,5 +1,23 @@
 ---
 
-- name: Benchmark
+- name: Benchmark home page 1
   shell: ./bin/jmeter -n -t "benchmarking/primeiro.jmx" -l "benchmarking/primeiro.csv"
   #/home/miguel/Downloads/apache-jmeter-5.5/bin/jmeter
+
+- name: Benchmark home page 2
+  shell: ./bin/jmeter -n -t "benchmarking/segundo.jmx" -l "benchmarking/segundo.csv"
+
+
+
+- name: Benchmark home page 3
+  shell: ./bin/jmeter -n -t "benchmarking/terceiro.jmx" -l "benchmarking/terceiro.csv"
+
+
+- name: Benchmark login page 1
+  shell: ./bin/jmeter -n -t "benchmarking/log1.jmx" -l "benchmarking/login1.csv"
+
+- name: Benchmark login page 2
+  shell: ./bin/jmeter -n -t "benchmarking/log2.jmx" -l "benchmarking/login2.csv"
+
+- name: Benchmark login page 3
+  shell: ./bin/jmeter -n -t "benchmarking/log3.jmx" -l "benchmarking/login3.csv"
