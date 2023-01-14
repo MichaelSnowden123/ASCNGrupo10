@@ -1,7 +1,5 @@
 ---
 
-#- name: Dashboard RAM
-#  shell: gcloud monitoring dashboards create --config-from-file="monitoring/ya.json"
 
 - name: Permissoes para os dashboards
   shell: export GOOGLE_APPLICATION_CREDENTIALS=json/servicekey.json

@@ -7,9 +7,36 @@
     "columns": 12,
     "tiles": [
       {
+        "height": 2,
+        "widget": {
+          "scorecard": {
+            "sparkChartView": {
+              "sparkChartType": "SPARK_LINE"
+            },
+            "thresholds": [],
+            "timeSeriesQuery": {
+              "apiSource": "DEFAULT_CLOUD",
+              "timeSeriesFilter": {
+                "aggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_MEAN",
+                  "groupByFields": [],
+                  "perSeriesAligner": "ALIGN_MEAN"
+                },
+                "filter": "metric.type=\"compute.googleapis.com/instance_group/size\" resource.type=\"instance_group\""
+              }
+            }
+          },
+          "title": "#VMs"
+        },
+        "width": 3,
+        "xPos": 0,
+        "yPos": 0
+      },
+      {
         "height": 4,
         "widget": {
-          "title": "Kubernetes Container - CPU usage time [MEAN]",
+          "title": "VM Instance - CPU usage [MEAN]",
           "xyChart": {
             "chartOptions": {
               "mode": "COLOR"
@@ -17,7 +44,7 @@
             "dataSets": [
               {
                 "minAlignmentPeriod": "60s",
-                "plotType": "LINE",
+                "plotType": "STACKED_AREA",
                 "targetAxis": "Y1",
                 "timeSeriesQuery": {
                   "apiSource": "DEFAULT_CLOUD",
@@ -27,7 +54,7 @@
                       "crossSeriesReducer": "REDUCE_NONE",
                       "perSeriesAligner": "ALIGN_RATE"
                     },
-                    "filter": "metric.type=\"kubernetes.io/container/cpu/core_usage_time\" resource.type=\"k8s_container\"",
+                    "filter": "metric.type=\"compute.googleapis.com/instance/cpu/usage_time\" resource.type=\"gce_instance\"",
                     "secondaryAggregation": {
                       "alignmentPeriod": "60s",
                       "crossSeriesReducer": "REDUCE_NONE",
@@ -47,12 +74,68 @@
         },
         "width": 6,
         "xPos": 0,
+        "yPos": 2
+      },
+      {
+        "height": 2,
+        "widget": {
+          "scorecard": {
+            "gaugeView": {
+              "lowerBound": 0,
+              "upperBound": 1
+            },
+            "thresholds": [],
+            "timeSeriesQuery": {
+              "apiSource": "DEFAULT_CLOUD",
+              "timeSeriesFilter": {
+                "aggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_MIN",
+                  "groupByFields": [],
+                  "perSeriesAligner": "ALIGN_MIN"
+                },
+                "filter": "metric.type=\"compute.googleapis.com/instance/cpu/utilization\" resource.type=\"gce_instance\""
+              }
+            }
+          },
+          "title": "VM Instance - CPU utilization [MIN]"
+        },
+        "width": 3,
+        "xPos": 3,
+        "yPos": 0
+      },
+      {
+        "height": 2,
+        "widget": {
+          "scorecard": {
+            "gaugeView": {
+              "lowerBound": 0,
+              "upperBound": 1
+            },
+            "thresholds": [],
+            "timeSeriesQuery": {
+              "apiSource": "DEFAULT_CLOUD",
+              "timeSeriesFilter": {
+                "aggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_MAX",
+                  "groupByFields": [],
+                  "perSeriesAligner": "ALIGN_MAX"
+                },
+                "filter": "metric.type=\"compute.googleapis.com/instance/cpu/utilization\" resource.type=\"gce_instance\""
+              }
+            }
+          },
+          "title": "VM Instance - CPU utilization [MAX]"
+        },
+        "width": 3,
+        "xPos": 6,
         "yPos": 0
       },
       {
         "height": 4,
         "widget": {
-          "title": "Kubernetes Container - CPU request utilization [MEAN]",
+          "title": "VM Instance - RTT latencies [95TH PERCENTILE]",
           "xyChart": {
             "chartOptions": {
               "mode": "COLOR"
@@ -60,7 +143,7 @@
             "dataSets": [
               {
                 "minAlignmentPeriod": "60s",
-                "plotType": "LINE",
+                "plotType": "STACKED_AREA",
                 "targetAxis": "Y1",
                 "timeSeriesQuery": {
                   "apiSource": "DEFAULT_CLOUD",
@@ -68,9 +151,9 @@
                     "aggregation": {
                       "alignmentPeriod": "60s",
                       "crossSeriesReducer": "REDUCE_NONE",
-                      "perSeriesAligner": "ALIGN_MEAN"
+                      "perSeriesAligner": "ALIGN_PERCENTILE_95"
                     },
-                    "filter": "metric.type=\"kubernetes.io/container/cpu/request_utilization\" resource.type=\"k8s_container\"",
+                    "filter": "metric.type=\"networking.googleapis.com/vm_flow/rtt\" resource.type=\"gce_instance\"",
                     "secondaryAggregation": {
                       "alignmentPeriod": "60s",
                       "crossSeriesReducer": "REDUCE_NONE",
@@ -90,50 +173,7 @@
         },
         "width": 6,
         "xPos": 6,
-        "yPos": 0
-      },
-      {
-        "height": 4,
-        "widget": {
-          "title": "VM Instance - CPU utilization [MEAN]",
-          "xyChart": {
-            "chartOptions": {
-              "mode": "COLOR"
-            },
-            "dataSets": [
-              {
-                "minAlignmentPeriod": "60s",
-                "plotType": "LINE",
-                "targetAxis": "Y1",
-                "timeSeriesQuery": {
-                  "apiSource": "DEFAULT_CLOUD",
-                  "timeSeriesFilter": {
-                    "aggregation": {
-                      "alignmentPeriod": "60s",
-                      "crossSeriesReducer": "REDUCE_NONE",
-                      "perSeriesAligner": "ALIGN_MEAN"
-                    },
-                    "filter": "metric.type=\"compute.googleapis.com/instance/cpu/utilization\" resource.type=\"gce_instance\"",
-                    "secondaryAggregation": {
-                      "alignmentPeriod": "60s",
-                      "crossSeriesReducer": "REDUCE_NONE",
-                      "perSeriesAligner": "ALIGN_NONE"
-                    }
-                  }
-                }
-              }
-            ],
-            "thresholds": [],
-            "timeshiftDuration": "0s",
-            "yAxis": {
-              "label": "y1Axis",
-              "scale": "LINEAR"
-            }
-          }
-        },
-        "width": 6,
-        "xPos": 0,
-        "yPos": 4
+        "yPos": 2
       }
     ]
   }

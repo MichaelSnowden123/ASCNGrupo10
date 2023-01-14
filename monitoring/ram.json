@@ -1,58 +1,70 @@
 {
   "category": "CUSTOM",
   "dashboardFilters": [],
-  "displayName": "RAM - Custom",
+  "displayName": "RAM",
   "labels": {},
   "mosaicLayout": {
     "columns": 12,
     "tiles": [
       {
-        "height": 4,
+        "height": 2,
         "widget": {
-          "title": "Kubernetes Container - Memory limit utilization [MEAN]",
-          "xyChart": {
-            "chartOptions": {
-              "mode": "COLOR"
+          "scorecard": {
+            "gaugeView": {
+              "lowerBound": 0,
+              "upperBound": 1
             },
-            "dataSets": [
-              {
-                "minAlignmentPeriod": "60s",
-                "plotType": "STACKED_AREA",
-                "targetAxis": "Y1",
-                "timeSeriesQuery": {
-                  "apiSource": "DEFAULT_CLOUD",
-                  "timeSeriesFilter": {
-                    "aggregation": {
-                      "alignmentPeriod": "60s",
-                      "crossSeriesReducer": "REDUCE_NONE",
-                      "perSeriesAligner": "ALIGN_MEAN"
-                    },
-                    "filter": "metric.type=\"kubernetes.io/container/memory/limit_utilization\" resource.type=\"k8s_container\"",
-                    "secondaryAggregation": {
-                      "alignmentPeriod": "60s",
-                      "crossSeriesReducer": "REDUCE_NONE",
-                      "perSeriesAligner": "ALIGN_NONE"
-                    }
-                  }
-                }
-              }
-            ],
             "thresholds": [],
-            "timeshiftDuration": "0s",
-            "yAxis": {
-              "label": "y1Axis",
-              "scale": "LINEAR"
+            "timeSeriesQuery": {
+              "apiSource": "DEFAULT_CLOUD",
+              "timeSeriesFilter": {
+                "aggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_SUM",
+                  "groupByFields": [],
+                  "perSeriesAligner": "ALIGN_MEAN"
+                },
+                "filter": "metric.type=\"compute.googleapis.com/instance/memory/balloon/ram_used\" resource.type=\"gce_instance\""
+              }
             }
-          }
+          },
+          "title": "VM Memory Used [SUM]"
         },
-        "width": 6,
-        "xPos": 6,
+        "width": 3,
+        "xPos": 3,
+        "yPos": 0
+      },
+      {
+        "height": 2,
+        "widget": {
+          "scorecard": {
+            "sparkChartView": {
+              "sparkChartType": "SPARK_LINE"
+            },
+            "thresholds": [],
+            "timeSeriesQuery": {
+              "apiSource": "DEFAULT_CLOUD",
+              "timeSeriesFilter": {
+                "aggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_SUM",
+                  "groupByFields": [],
+                  "perSeriesAligner": "ALIGN_MEAN"
+                },
+                "filter": "metric.type=\"compute.googleapis.com/instance_group/size\" resource.type=\"instance_group\""
+              }
+            }
+          },
+          "title": "Instance group size [SUM]"
+        },
+        "width": 3,
+        "xPos": 0,
         "yPos": 0
       },
       {
         "height": 4,
         "widget": {
-          "title": "Kubernetes Container - Memory usage [MEAN]",
+          "title": "Page cache memory usage in Bytes [MEAN]",
           "xyChart": {
             "chartOptions": {
               "mode": "COLOR"
@@ -70,7 +82,7 @@
                       "crossSeriesReducer": "REDUCE_NONE",
                       "perSeriesAligner": "ALIGN_MEAN"
                     },
-                    "filter": "metric.type=\"kubernetes.io/container/memory/used_bytes\" resource.type=\"k8s_container\"",
+                    "filter": "metric.type=\"compute.googleapis.com/guest/memory/page_cache_used\" resource.type=\"gce_instance\"",
                     "secondaryAggregation": {
                       "alignmentPeriod": "60s",
                       "crossSeriesReducer": "REDUCE_NONE",
@@ -90,6 +102,49 @@
         },
         "width": 6,
         "xPos": 0,
+        "yPos": 2
+      },
+      {
+        "height": 4,
+        "widget": {
+          "title": "VM Instance - RTT latencies [95TH PERCENTILE]",
+          "xyChart": {
+            "chartOptions": {
+              "mode": "COLOR"
+            },
+            "dataSets": [
+              {
+                "minAlignmentPeriod": "60s",
+                "plotType": "STACKED_AREA",
+                "targetAxis": "Y1",
+                "timeSeriesQuery": {
+                  "apiSource": "DEFAULT_CLOUD",
+                  "timeSeriesFilter": {
+                    "aggregation": {
+                      "alignmentPeriod": "60s",
+                      "crossSeriesReducer": "REDUCE_NONE",
+                      "perSeriesAligner": "ALIGN_PERCENTILE_95"
+                    },
+                    "filter": "metric.type=\"networking.googleapis.com/vm_flow/rtt\" resource.type=\"gce_instance\"",
+                    "secondaryAggregation": {
+                      "alignmentPeriod": "60s",
+                      "crossSeriesReducer": "REDUCE_NONE",
+                      "perSeriesAligner": "ALIGN_NONE"
+                    }
+                  }
+                }
+              }
+            ],
+            "thresholds": [],
+            "timeshiftDuration": "0s",
+            "yAxis": {
+              "label": "y1Axis",
+              "scale": "LINEAR"
+            }
+          }
+        },
+        "width": 6,
+        "xPos": 6,
         "yPos": 0
       }
     ]
