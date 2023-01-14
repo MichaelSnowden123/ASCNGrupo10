@@ -12,5 +12,5 @@ spec:
   ports:
     - protocol: TCP  
       port: {{ ghost_port }} #80
-      targetPort: 2368 #supostamente o servico ghost ouve sempre nesta porta
+      targetPort: 2368 #o servico ghost ouve sempre nesta porta
   loadBalancerIP: {{ ghost_ip }}

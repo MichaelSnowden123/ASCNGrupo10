@@ -1,4 +1,5 @@
 ---
 
 - name: Benchmark
-  shell: /home/miguel/Downloads/apache-jmeter-5.5/bin/jmeter -n -t "benchmarking/primeiro.jmx" -l "benchmarking/primeiro.csv"
+  shell: ./bin/jmeter -n -t "benchmarking/primeiro.jmx" -l "benchmarking/primeiro.csv"
+  #/home/miguel/Downloads/apache-jmeter-5.5/bin/jmeter

@@ -1,20 +1,4 @@
 ---
-#- name: Search for mysql
-#  kubernetes.core.k8s_info:
-#    namespace: default
-#    kind: Pod
-#    label_selectors:
-#      - app = mysql
-#  register: pod_list
-
-#- name: Search for nodes
-#  kubernetes.core.k8s_info:
-#    namespace: default
-#    kind: Node
-#  register: node_list
-
-#- name: Destroy IP
-#  shell: gcloud compute addresses delete helloweb-ip --region {{ gcp_region }}
 
 - name: Destroy ghost
   kubernetes.core.k8s:
