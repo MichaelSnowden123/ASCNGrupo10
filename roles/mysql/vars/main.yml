@@ -1,5 +1,0 @@
----
-mysql_client: mysql
-mysql_host: mysql-service
-mysql_user: ghost
-mysql_password123: 123456
